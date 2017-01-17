@@ -1,86 +1,23 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: mac
-  Date: 2016/12/7
-  Time: 上午10:26
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 
-<style type="text/css">
-    html, body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        overflow-y: hidden;
-    }
-
-    #screenContainer {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        text-align: center;
-
-    }
-
-    #keyinput {
-        position: absolute;
-        left: 5px;
-        top: 5px;
-    }
-
-    #screenshot {
-        width: auto;
-        height: 100%;
-        cursor: pointer;
-    }
-
-    /*#loadingContainer{*/
-    /*position:absolute;*/
-    /*width:100%;*/
-    /*height:100%;*/
-    /*z-index:99;*/
-    /*cursor:wait*/
-    /*}*/
-    /*#loadingContainer img{*/
-    /*position:absolute;*/
-    /*top:50%;*/
-    /*left:50%;*/
-    /*margin-top:-200px;*/
-    /*margin-left:-100px;*/
-    /*}*/
-    .line {
-        position: absolute;
-        background: red;
-        left: 0;
-        top: 0;
-        width: 1px;
-        height: 1px;
-        z-index: 999;
-    }
-</style>
-
-
-<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-
+    <style type="text/css">
+        #screenshot {
+            width: auto;
+            height: 100%;
+            cursor: pointer;
+        }
+    </style>
 <script>
 
-    var mapNodeValueCount = {};
-    var appTree = null;
-
-    var appSource = '';
-    var appTree = '';
     var appWidth = 0, appHeight = 0;
     var imgWidth = 0, imgHeight = 0;
-    var checkResult = true;
     var scaleX = 1, scaleY = 1;
-
-    var mapNodeValueCount = {};
-
-
-    var arrKeyAttrs = ['resource-id', 'name', 'text'];
-
 
 
     function request_get() {
@@ -115,13 +52,7 @@
 
     $(document).ready(function () {
 
-        var loadingContainer = document.getElementById('loadingContainer');
         var screenshot = document.getElementById('screenshot');
-        var topLine = document.getElementById('topLine');
-        var bottomLine = document.getElementById('bottomLine');
-        var leftLine = document.getElementById('leftLine');
-        var rightLine = document.getElementById('rightLine');
-        var keyinput = document.getElementById('keyinput');
 
         var downX = -9999;
         var downY = -9999;
@@ -147,10 +78,6 @@
                     case 'mobileAppInfo':
                         var appInfo = message.data;
 
-//                        appSource = appInfo.source;
-
-//                        appTree = appSource.tree || appSource.hierarchy.node;
-//                        scanAllNode();
                         $('#screenshot').attr('src', 'data:image/png;base64,' + appInfo.screenshot);
                         appWidth = screenshot.naturalWidth;
                         appHeight = screenshot.naturalHeight;
@@ -162,8 +89,6 @@
                             scaleX = appWidth / imgWidth;
                             scaleY = appHeight / imgHeight;
                         }
-
-
                         break;
                 }
                 ;
@@ -226,24 +151,24 @@
 
     });
 
+    function clickFunc(func) {
+        saveCommand(func, '');
+    }
+
 
 </script>
 
-<html>
-<head>
-    <title>$Title$</title>
 </head>
 <body>
-<div id="screenContainer">
-    <img id="screenshot">
+
+
+<div style="text-align: center">
+    <p>
+        <button type="button" onclick="clickFunc('home')" class="btn btn-sm btn-info">home</button>
+    </p>
+    <img id="screenshot" class="img-thumbnail" data-holder-rendered="true">
 </div>
-<div id="loadingContainer">
-</div>
-<div id="topLine" class="line"></div>
-<div id="bottomLine" class="line"></div>
-<div id="leftLine" class="line"></div>
-<div id="rightLine" class="line"></div>
-<input type="text" id="keyinput" style="display:none"/>
+
 
 </body>
 </html>
